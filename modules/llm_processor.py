@@ -1,0 +1,28 @@
+from google import genai
+import os
+from dotenv import load_dotenv
+
+# Load .env variables (optional but good practice)
+load_dotenv()
+
+# Create Gemini client (NEW SDK STYLE)
+client = genai.Client(
+    api_key=os.getenv("GEMINI_API_KEY")
+)
+
+def rewrite_text_for_audiobook(text):
+
+    prompt = f"""
+Rewrite the following text in engaging audiobook narration style.
+Make it smooth, natural, and pleasant to listen.
+
+Text:
+{text}
+"""
+
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview",
+        contents=prompt
+    )
+
+    return response.text
