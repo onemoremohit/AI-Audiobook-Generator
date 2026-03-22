@@ -1,8 +1,10 @@
 # Virtual environments
 SadTalker/
-sadtalker_env/
 venv/
+sadtalker_env/
 checkpoints/
+*.mp4
+*.wav
 
 # Python cache
 __pycache__/
