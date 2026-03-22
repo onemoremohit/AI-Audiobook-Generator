@@ -1,10 +1,6 @@
 # Virtual environments
-SadTalker/
 venv/
 sadtalker_env/
-checkpoints/
-*.mp4
-*.wav
 
 # Python cache
 __pycache__/
@@ -15,7 +11,12 @@ __pycache__/
 
 # Generated files
 audiobook.mp3
+*.mp4
+*.wav
 
 # OS files
 .DS_Store
 Thumbs.db
+
+# Ignore SadTalker repo
+SadTalker/

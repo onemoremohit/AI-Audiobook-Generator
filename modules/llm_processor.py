@@ -14,7 +14,7 @@ def rewrite_text_for_audiobook(text):
 
     prompt = f"""
 Rewrite the following text in engaging audiobook narration style.
-Make it smooth, natural, and pleasant to listen.
+Make it smooth, natural, and pleasant to listen with maximum 100 charactors total. Don't add any special symbols or notes etc.
 
 Text:
 {text}

@@ -2,8 +2,7 @@ import streamlit as st
 from modules.text_extractor import extract_text
 from modules.llm_processor import rewrite_text_for_audiobook
 from modules.tts_engine import text_to_speech
-import streamlit.components.v1 as components
-
+from modules.avatar_video import generate_avatar_video
 
 st.title("AI Audiobook Generator")
 
@@ -19,6 +18,23 @@ if uploaded_file:
     st.success("Text Extracted ✅")
     st.text_area("Extracted Text", text, height=300)
 
+st.subheader("🎛 Voice Settings")
+
+voice_gender = st.selectbox(
+    "Select Voice",
+    ["Female", "Male"]
+)
+
+speed = st.selectbox(
+    "Narration Speed",
+    ["Slow", "Normal", "Fast"]
+)
+
+tone = st.selectbox(
+    "Narration Tone",
+    ["Storytelling", "Formal", "Emotional"]
+)    
+
 if uploaded_file:
 
     if st.button("Rewrite with AI and Generate Audiobook 🎧"):
@@ -33,12 +49,7 @@ if uploaded_file:
         with status: 
             audio_file = text_to_speech(new_text)
             status.update(label="🎧 Audiobook generated successfully!", state="complete")
-        st.audio(audio_file)
-
-        with open("avatar_player.html", "r", encoding="utf-8") as f:
-            avatar_html = f.read()
-        avatar_html = avatar_html.replace("audiobook.mp3", audio_file)
-        components.html(avatar_html, height=600)    
+        st.audio(audio_file) 
 
         with open(audio_file, "rb") as f:
             st.download_button(
@@ -47,4 +58,17 @@ if uploaded_file:
                 file_name="audiobook.mp3"
             ) 
 
+    if st.button("Generate Talking Avatar 🎬"):
 
+        status = st.status("Generating talking avatar...", expanded=True)
+        with status:
+            video_file = generate_avatar_video(audio_file)
+            status.update(label="🎬 Avatar video ready!", state="complete")
+        st.video(video_file)
+
+        with open(video_file, "rb") as f:
+            st.download_button(
+                "Download Video",
+                f,
+                file_name="avatar_video.mp4"
+            )
